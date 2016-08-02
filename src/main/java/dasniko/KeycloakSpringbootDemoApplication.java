@@ -16,14 +16,15 @@ import javax.servlet.http.HttpServletRequest;
 @SpringBootApplication
 public class KeycloakSpringbootDemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(KeycloakSpringbootDemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(KeycloakSpringbootDemoApplication.class, args);
+    }
 
-	@Bean
-	@Scope(scopeName = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
-	public AccessToken getAccessToken() {
+    @Bean
+    @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public AccessToken getAccessToken() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         return ((KeycloakPrincipal) request.getUserPrincipal()).getKeycloakSecurityContext().getToken();
     }
+
 }

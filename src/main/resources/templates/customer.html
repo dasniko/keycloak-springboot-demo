@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::header"></head>
+<body>
+
+<div th:replace="fragments::menu"/>
+
+<div class="container" th:object="${customer}">
+    <h1 th:text="*{name}" class="text-primary"/>
+    <table class="table">
+        <tr>
+            <td style="font-weight: bold">Name</td>
+            <td th:text="*{name}"/>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Street</td>
+            <td th:text="*{street}"/>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">City</td>
+            <td th:text="*{city}"/>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">ZIP</td>
+            <td th:text="*{zip}"/>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Country</td>
+            <td th:text="*{country}"/>
+        </tr>
+    </table>
+    <button class="btn btn-primary" onclick="history.back()">back</button>
+</div>
+
+</body>
+</html>

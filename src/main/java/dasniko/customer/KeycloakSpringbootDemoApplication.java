@@ -1,4 +1,4 @@
-package dasniko;
+package dasniko.customer;
 
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.representations.AccessToken;

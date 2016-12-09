@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::header"></head>
+<body>
+
+<div th:replace="fragments::menu"/>
+
+<div class="container">
+    <h1>Customers</h1>
+    <form th:action="@{/customers}" method="get">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search..." id="q" name="q"/>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">Go</button>
+            </span>
+        </div>
+    </form>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Street</th>
+            <th>City</th>
+            <th>Zip</th>
+            <th>Country</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${customerList}">
+            <td>
+                <a th:text="${c.name}" th:href="@{/customers/{id}(id=${c.id})}"/>
+            </td>
+            <td th:text="${c.street}"></td>
+            <td th:text="${c.city}"></td>
+            <td th:text="${c.zip}"></td>
+            <td th:text="${c.country}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

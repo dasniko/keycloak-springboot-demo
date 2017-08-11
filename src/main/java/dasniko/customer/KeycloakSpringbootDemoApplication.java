@@ -1,6 +1,7 @@
 package dasniko.customer;
 
 import org.keycloak.KeycloakPrincipal;
+import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.representations.AccessToken;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,8 +24,17 @@ public class KeycloakSpringbootDemoApplication {
     @Bean
     @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public AccessToken getAccessToken() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
-        return ((KeycloakPrincipal) request.getUserPrincipal()).getKeycloakSecurityContext().getToken();
+        return ((KeycloakPrincipal) getRequest().getUserPrincipal()).getKeycloakSecurityContext().getToken();
+    }
+
+    @Bean
+    @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public KeycloakSecurityContext getKeycloakSecurityContext() {
+        return ((KeycloakPrincipal) getRequest().getUserPrincipal()).getKeycloakSecurityContext();
+    }
+
+    private HttpServletRequest getRequest() {
+        return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
     }
 
 }

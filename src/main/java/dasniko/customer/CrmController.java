@@ -6,6 +6,7 @@ import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.representations.AccessToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,18 +26,18 @@ public class CrmController {
     private final KeycloakSecurityContext securityContext;
     private final AccessToken accessToken;
 
-    @RequestMapping
+    @GetMapping
     public String home() {
         return "home";
     }
 
-    @RequestMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request) throws Exception {
         request.logout();
         return "redirect:/";
     }
 
-    @RequestMapping("/customers")
+    @GetMapping("/customers")
     public String customers(Model model, Principal principal) {
         log.info("AccessToken: " + securityContext.getTokenString());
         log.info("User: {} / {}", accessToken.getPreferredUsername(), accessToken.getName());
@@ -45,7 +46,7 @@ public class CrmController {
         return "customers";
     }
 
-    @RequestMapping("/customers/{id}")
+    @GetMapping("/customers/{id}")
     public String customer(@PathVariable("id") Long id, Model model) {
         model.addAttribute(customerRepository.findOne(id));
         return "customer";
